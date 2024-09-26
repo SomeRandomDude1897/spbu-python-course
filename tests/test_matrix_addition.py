@@ -11,6 +11,7 @@ def test_matrix_addition_with_equal_size():
         [10, 12],
     ], "Результат сложения должен быть [[6, 8], [10, 12]]"
 
+
 def test_matrix_addition_with_zero_matrix():
     matrix1 = Matrix([[1, 2], [3, 4]])
     matrix3 = Matrix([[0, 0], [0, 0]])
@@ -20,6 +21,7 @@ def test_matrix_addition_with_zero_matrix():
         [3, 4],
     ], "Результат сложения с нулевой матрицей должен быть равен оригинальной матрице"
 
+
 def test_matrix_addition_with_different_size():
     matrix1 = Matrix([[1, 2], [3, 4]])
     matrix4 = Matrix([[1, 2]])
@@ -28,4 +30,3 @@ def test_matrix_addition_with_different_size():
         match="In order to find the sum of two matrices they must be the same size",
     ):
         matrix1 + matrix4
-

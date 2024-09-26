@@ -9,6 +9,7 @@ def test_matrix_transposition_of_square_matrix():
         [2, 4],
     ], "Транспонированная матрица должна быть [[1, 3], [2, 4]]"
 
+
 def test_matrix_transposition_of_rectangular_matrix():
     matrix2 = Matrix([[1, 2, 3], [4, 5, 6]])
     result = matrix2.trans()
@@ -17,6 +18,7 @@ def test_matrix_transposition_of_rectangular_matrix():
         [2, 5],
         [3, 6],
     ], "Транспонированная матрица должна быть [[1, 4], [2, 5], [3, 6]]"
+
 
 def test_transposition_of_identity_matrix():
     identity_matrix = Matrix([[1, 0], [0, 1]])
