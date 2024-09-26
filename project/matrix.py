@@ -3,47 +3,47 @@ from typing import Union, List
 
 class Matrix:
     """
-    Класс для представления матрицы и выполнения операций с ней.
+    A class to represent a matrix and perform operations with it.
 
-    Атрибуты:
-    ----------
+    Attributes:
+    -----------
     content : List[List[Union[int, float]]]
-        Двумерный список, представляющий содержимое матрицы.
+        A two-dimensional list representing the matrix content.
     width : int
-        Количество столбцов матрицы (максимальная длина строк).
+        The number of columns in the matrix (the maximum length of rows).
     height : int
-        Количество строк матрицы.
+        The number of rows in the matrix.
 
-    Методы:
-    -------
+    Methods:
+    --------
     __init__(content: List[List[Union[int, float]]] = []) -> None:
-        Инициализация матрицы с выравниванием строк до одинаковой длины.
+        Initializes a matrix, aligning the rows to have the same length.
 
     draw() -> None:
-        Выводит содержимое матрицы в консоль.
+        Prints the matrix content to the console.
 
     __add__(other: 'Matrix') -> 'Matrix':
-        Складывает текущую матрицу с другой матрицей и возвращает результат.
+        Adds the current matrix with another matrix and returns the result.
 
     __mul__(other: 'Matrix') -> 'Matrix':
-        Умножает текущую матрицу на другую матрицу и возвращает результат.
+        Multiplies the current matrix with another matrix and returns the result.
 
     trans() -> 'Matrix':
-        Транспонирует текущую матрицу (меняет строки на столбцы) и возвращает результат.
+        Transposes the current matrix (swaps rows with columns) and returns the result.
     """
 
     def __init__(self, content: List[List[Union[int, float]]] = []) -> None:
         """
-        Инициализирует матрицу.
+        Initializes a matrix.
 
-        Принимает двумерный список (список списков), который представляет матрицу.
-        Автоматически выравнивает строки до максимальной длины, добавляя нули в конец
-        строк, которые короче других.
+        Takes a two-dimensional list (a list of lists) that represents the matrix.
+        Automatically aligns the rows to the maximum length by adding zeros to the end
+        of rows that are shorter than others.
 
-        Параметры:
-        ----------
+        Parameters:
+        -----------
         content : List[List[Union[int, float]]], optional
-            Двумерный список чисел (int или float), представляющий матрицу. По умолчанию — пустой список.
+            A two-dimensional list of numbers (int or float) representing the matrix. Defaults to an empty list.
         """
         self.content: List[List[Union[int, float]]] = content
         self.width: int = 0
@@ -55,36 +55,27 @@ class Matrix:
             if self.width > len(self.content[i]):
                 self.content[i] += [0] * (self.width - len(self.content[i]))
 
-    def draw(self) -> None:
-        """
-        Выводит содержимое матрицы в консоль.
-
-        Пример вывода:
-        [[1, 2, 3], [4, 5, 6]]
-        """
-        print(self.content)
-
     def __add__(self, other: "Matrix") -> "Matrix":
         """
-        Складывает текущую матрицу с другой матрицей.
+        Adds the current matrix with another matrix.
 
-        Складывает два объекта класса `Matrix`, проверяя при этом, что их размеры совпадают.
-        Возвращает новую матрицу, содержащую сумму соответствующих элементов.
+        Adds two `Matrix` objects, checking that their sizes match.
+        Returns a new matrix containing the sum of the corresponding elements.
 
-        Параметры:
-        ----------
+        Parameters:
+        -----------
         other : Matrix
-            Вторая матрица, с которой нужно произвести сложение.
+            The second matrix to be added.
 
-        Возвращаемое значение:
-        ----------------------
+        Returns:
+        --------
         Matrix
-            Новая матрица, представляющая собой результат сложения двух матриц.
+            A new matrix representing the result of adding the two matrices.
 
-        Исключения:
+        Exceptions:
         -----------
         Exception
-            Если размеры двух матриц не совпадают.
+            If the sizes of the two matrices do not match.
         """
         if self.width != other.width or self.height != other.height:
             raise Exception(
@@ -99,26 +90,26 @@ class Matrix:
 
     def __mul__(self, other: "Matrix") -> "Matrix":
         """
-        Умножает текущую матрицу на другую матрицу.
+        Multiplies the current matrix with another matrix.
 
-        Умножает два объекта класса `Matrix`, проверяя, что число столбцов первой
-        матрицы равно числу строк второй матрицы. Возвращает новую матрицу, содержащую
-        результат умножения.
+        Multiplies two `Matrix` objects, checking that the number of columns in the first
+        matrix matches the number of rows in the second matrix. Returns a new matrix containing
+        the result of the multiplication.
 
-        Параметры:
-        ----------
+        Parameters:
+        -----------
         other : Matrix
-            Вторая матрица, на которую нужно умножить текущую матрицу.
+            The second matrix to multiply with the current matrix.
 
-        Возвращаемое значение:
-        ----------------------
+        Returns:
+        --------
         Matrix
-            Новая матрица, представляющая собой результат умножения двух матриц.
+            A new matrix representing the result of multiplying the two matrices.
 
-        Исключения:
+        Exceptions:
         -----------
         Exception
-            Если число столбцов первой матрицы не равно числу строк второй.
+            If the number of columns in the first matrix does not match the number of rows in the second.
         """
         if self.height != other.width:
             raise Exception("Matrix dimensions not fit for multiplication")
@@ -137,20 +128,20 @@ class Matrix:
 
     def trans(self) -> "Matrix":
         """
-        Транспонирует текущую матрицу.
+        Transposes the current matrix.
 
-        Меняет строки на столбцы и возвращает новую матрицу.
+        Swaps rows with columns and returns a new matrix.
 
-        Возвращаемое значение:
-        ----------------------
+        Returns:
+        --------
         Matrix
-            Новая транспонированная матрица.
+            A new transposed matrix.
 
-        Пример:
-        -------
-        Если исходная матрица:
+        Example:
+        --------
+        If the original matrix is:
         [[1, 2, 3], [4, 5, 6]]
-        Транспонированная матрица будет:
+        The transposed matrix will be:
         [[1, 4], [2, 5], [3, 6]]
         """
         return Matrix(

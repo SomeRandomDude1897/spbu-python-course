@@ -4,55 +4,55 @@ import math
 
 class Vector:
     """
-    Класс для представления вектора и выполнения операций с ним.
+    A class to represent a vector and perform operations with it.
 
-    Атрибуты:
-    ----------
+    Attributes:
+    -----------
     coordinates : List[Union[int, float]]
-        Список координат вектора (может содержать как целые числа, так и числа с плавающей точкой).
+        A list of vector coordinates (can contain both integers and floating-point numbers).
 
-    Методы:
-    -------
+    Methods:
+    --------
     __init__(coordinates: List[Union[int, float]] = []) -> None:
-        Инициализирует вектор с заданными координатами.
+        Initializes the vector with the given coordinates.
 
     scalar_product(vector1: 'Vector', vector2: 'Vector') -> Union[int, float]:
-        Вычисляет скалярное произведение двух векторов.
+        Calculates the dot product of two vectors.
 
     get_angle(vector1: 'Vector', vector2: 'Vector') -> float:
-        Вычисляет угол между двумя векторами в градусах.
+        Calculates the angle between two vectors in degrees.
 
     length() -> float:
-        Вычисляет длину вектора (его евклидову норму).
+        Calculates the length (Euclidean norm) of the vector.
     """
 
     @staticmethod
     def scalar_product(vector1: "Vector", vector2: "Vector") -> Union[int, float]:
         """
-        Вычисляет скалярное произведение двух векторов.
+        Calculates the dot product of two vectors.
 
-        Скалярное произведение двух векторов рассчитывается как сумма произведений
-        их соответствующих координат.
+        The dot product of two vectors is calculated as the sum of the products
+        of their corresponding coordinates.
 
-        Параметры:
-        ----------
+        Parameters:
+        -----------
         vector1 : Vector
-            Первый вектор.
+            The first vector.
         vector2 : Vector
-            Второй вектор.
+            The second vector.
 
-        Возвращаемое значение:
-        ----------------------
+        Returns:
+        --------
         Union[int, float]
-            Результат скалярного произведения двух векторов.
+            The result of the dot product of two vectors.
 
-        Исключения:
+        Exceptions:
         -----------
         Exception
-            Если количество измерений (координат) у векторов не совпадает.
+            If the number of dimensions (coordinates) of the vectors does not match.
 
-        Пример:
-        -------
+        Example:
+        --------
         >>> v1 = Vector([1, 2, 3])
         >>> v2 = Vector([4, 5, 6])
         >>> Vector.scalar_product(v1, v2)
@@ -68,31 +68,32 @@ class Vector:
     @staticmethod
     def get_angle(vector1: "Vector", vector2: "Vector") -> float:
         """
-        Вычисляет угол между двумя векторами в градусах.
+        Calculates the angle between two vectors in degrees.
 
-        Угол рассчитывается с использованием формулы:
-        cos(theta) = (A * B) / (|A| * |B|), где * - скалярное произведение,
-        а |A| и |B| - длины векторов. Затем угол переводится в градусы.
+        The angle is calculated using the formula:
+        cos(theta) = (A * B) / (|A| * |B|), where * is the dot product,
+        and |A| and |B| are the lengths of the vectors. The angle is then
+        converted to degrees.
 
-        Параметры:
-        ----------
+        Parameters:
+        -----------
         vector1 : Vector
-            Первый вектор.
+            The first vector.
         vector2 : Vector
-            Второй вектор.
+            The second vector.
 
-        Возвращаемое значение:
-        ----------------------
+        Returns:
+        --------
         float
-            Угол между двумя векторами в градусах.
+            The angle between the two vectors in degrees.
 
-        Исключения:
+        Exceptions:
         -----------
         Exception
-            Если один из векторов имеет нулевую длину.
+            If one of the vectors has a length of zero.
 
-        Пример:
-        -------
+        Example:
+        --------
         >>> v1 = Vector([1, 0])
         >>> v2 = Vector([0, 1])
         >>> Vector.get_angle(v1, v2)
@@ -107,15 +108,15 @@ class Vector:
 
     def __init__(self, coordinates: List[Union[int, float]] = []) -> None:
         """
-        Инициализирует вектор с заданными координатами.
+        Initializes the vector with the given coordinates.
 
-        Параметры:
-        ----------
+        Parameters:
+        -----------
         coordinates : List[Union[int, float]], optional
-            Список координат вектора, по умолчанию пустой список.
+            A list of vector coordinates, default is an empty list.
 
-        Пример:
-        -------
+        Example:
+        --------
         >>> v = Vector([1, 2, 3])
         >>> v.coordinates
         [1, 2, 3]
@@ -124,18 +125,18 @@ class Vector:
 
     def length(self) -> float:
         """
-        Вычисляет длину вектора (его евклидову норму).
+        Calculates the length (Euclidean norm) of the vector.
 
-        Длина (модуль) вектора рассчитывается как квадратный корень
-        из суммы квадратов его координат.
+        The length (magnitude) of the vector is calculated as the square root
+        of the sum of the squares of its coordinates.
 
-        Возвращаемое значение:
-        ----------------------
+        Returns:
+        --------
         float
-            Длина (модуль) вектора.
+            The length (magnitude) of the vector.
 
-        Пример:
-        -------
+        Example:
+        --------
         >>> v = Vector([3, 4])
         >>> v.length()
         5.0
