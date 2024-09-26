@@ -1,5 +1,6 @@
 import math
 from project.vector import Vector
+import pytest
 
 
 def test_vector_get_angle_90_degrees():
@@ -24,3 +25,11 @@ def test_vector_get_angle_0_degrees():
     assert math.isclose(
         Vector.get_angle(vector5, vector6), 0.0, abs_tol=1e-5
     ), "Угол должен быть 0"
+
+
+def test_get_angle_with_zero_vectors():
+    vector1 = Vector([0, 0])
+    vector2 = Vector([0, 0])
+
+    with pytest.raises(ZeroDivisionError):
+        Vector.get_angle(vector1, vector2)
