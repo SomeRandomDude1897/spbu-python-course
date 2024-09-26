@@ -10,6 +10,7 @@ def test_matrix_creation():
     matrix3 = Matrix([[1, 4], [2, 3]])
     assert matrix3.content == [[1, 4], [2, 3]], "Матрица должна быть выровнена нулями"
 
-def test_matrix_creation():
-    matrix3 = Matrix([[1, 4], [2, 3]])
-    assert matrix3.content == [[1, 4], [2, 3]], "Матрица должна быть корректно создана"
+
+def test_matrix_allignment():
+    matrix3 = Matrix([[1], [2, 3]])
+    assert matrix3.content == [[1, 0], [2, 3]], "Матрица должна быть корректно выровнена"
