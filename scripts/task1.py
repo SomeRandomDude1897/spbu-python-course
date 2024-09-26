@@ -1,6 +1,11 @@
 from vector import Vector
+from matrix import Matrix
 
-vec1 = Vector((1, 0, 0))
-vec2 = Vector((0, 2, 0))
+m1 = Matrix([[1, 2], [3, 4]])
+m2 = Matrix([[5 , 6], [7, 8]])
 
-print(Vector.get_angle(vec1, vec2))
+m1 *= m2
+
+m1.draw()
+
+m2.trans().draw()
