@@ -41,4 +41,3 @@ def test_scalar_product_with_zero_vector():
     assert (
         Vector.scalar_product(vector3, vector4) == 0
     ), "Скалярное произведение любого вектора с нулевым должно быть 0"
-
