@@ -49,7 +49,7 @@ def test_curry_explicit_multiple_arguments_in_partial():
     assert str(exc_info.value) == "Only one argument can be provided at a time"
 
 
-def test_curry_explicit_print():
+def test_curry_expicit_max():
     assert curry_explicit(3)(max)(1)(2)(3) == 3
 
 

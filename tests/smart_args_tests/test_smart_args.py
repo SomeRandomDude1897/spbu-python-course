@@ -101,7 +101,6 @@ def test_mutable_default_argument():
 
 
 def test_isolated_evaluated():
-
     def amogus():
         return "sus"
 
@@ -113,7 +112,6 @@ def test_isolated_evaluated():
 
 
 def test_keyword_args():
-
     def amogus():
         return "sus"
 
