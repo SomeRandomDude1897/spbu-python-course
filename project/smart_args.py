@@ -4,7 +4,6 @@ from inspect import signature
 
 
 class Evaluated:
-
     def __init__(self, func: Callable) -> None:
         assert not isinstance(
             func, Isolated
@@ -17,13 +16,11 @@ class Evaluated:
 
 
 class Isolated:
-
     def __init__(self) -> None:
         pass
 
 
 def smart_args(func: Callable[..., Any]) -> Callable[..., Any]:
-
     def wrapper(*args: Any, **kwargs: Any) -> Any:
 
         # Check for Evaluated and Isolated in positional arguments
