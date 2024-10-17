@@ -15,15 +15,16 @@ def test_evaluated_argument_evaluation():
 
 
 def test_evaluated_argument_with_function():
+    # переписать на неслучайные числа
     def generate_random():
-        return random.randint(1, 100)
+        return random.randint(1, 100000000)
 
     @smart_args
-    def func(x):
+    def func(x=Evaluated(generate_random)):
         return x
 
-    result1 = func(x=Evaluated(generate_random))
-    result2 = func(x=Evaluated(generate_random))
+    result1 = func()
+    result2 = func()
     assert result1 != result2  # Since random numbers are likely different
 
 
@@ -97,3 +98,27 @@ def test_mutable_default_argument():
     result2 = func()
     assert result1 == [1]
     assert result2 == [1]  # Each call should get a fresh copy
+
+
+def test_isolated_evaluated():
+
+    def amogus():
+        return "sus"
+
+    @smart_args
+    def func(a=Isolated(), b=Evaluated(amogus)):
+        return b + str(a)
+
+    assert func(27) == "sus27"
+
+
+def test_keyword_args():
+
+    def amogus():
+        return "sus"
+
+    @smart_args
+    def func(*, a=Isolated(), b=Evaluated(amogus)):
+        return b + str(a)
+
+    assert func(a=27) == "sus27"

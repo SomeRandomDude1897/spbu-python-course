@@ -35,3 +35,11 @@ def uncurry_explicit(arity):
         return inner_uncurry
 
     return decorator
+
+
+@curry_explicit(2)
+def amogus(a, b):
+    return a * b
+
+
+amogus(2)(3)
