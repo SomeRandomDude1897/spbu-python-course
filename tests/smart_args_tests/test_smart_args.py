@@ -100,6 +100,18 @@ def test_mutable_default_argument():
     assert result2 == [1]  # Each call should get a fresh copy
 
 
+def test_isolated():
+    @smart_args
+    @smart_args
+    def check_isolation(*, d=Isolated()):
+        d["a"] = 0
+        return d
+
+    no_mutable = {"a": 10}
+
+    assert check_isolation(d=no_mutable) == {"a": 0}
+
+
 def test_isolated_evaluated():
     def amogus():
         return "sus"
