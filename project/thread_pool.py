@@ -1,5 +1,5 @@
 import threading
-from typing import Callable, Any, List, Dict
+from typing import Callable, Any, List, Dict, Optional
 
 
 class PoolThread(threading.Thread):
@@ -12,7 +12,7 @@ class PoolThread(threading.Thread):
         self,
         pool: "ThreadPool",
         number: int,
-        target: Callable = None,
+        target: Optional[Callable[..., Any]] = None,
         args: tuple = (),
         kwargs: dict = {},
     ):
@@ -26,14 +26,17 @@ class PoolThread(threading.Thread):
         :param kwargs: The keyword arguments to pass to the task.
         """
         super().__init__()
-        self._target: Callable = target
+        self._target: Optional[Callable[..., Any]] = target
         self._args: tuple = args
         self._kwargs: dict = kwargs
         self._pool: "ThreadPool" = pool
         self._thread_number: int = number
 
     def set_task(
-        self, target: Callable = None, args: tuple = (), kwargs: dict = {}
+        self,
+        target: Optional[Callable[..., Any]] = None,
+        args: tuple = (),
+        kwargs: dict = {},
     ) -> None:
         """
         Set the task (function) for the thread to execute.
@@ -51,7 +54,7 @@ class PoolThread(threading.Thread):
         Run the assigned task, then free the thread back to the pool.
         """
         try:
-            if self._target:
+            if self._target is not None:
                 self._target(*self._args, **self._kwargs)
         finally:
             self._pool.free_thread(self._thread_number)
@@ -76,7 +79,7 @@ class ThreadPool:
         self._task_queue: List[Dict[str, Any]] = []
         self._disposed: bool = False
 
-    def _setup_task(self, func: Callable, args: tuple, kwargs: dict) -> bool:
+    def _setup_task(self, func: Callable[..., Any], args: tuple, kwargs: dict) -> bool:
         """
         Assign a task to an available thread if one is free.
 
@@ -85,10 +88,10 @@ class ThreadPool:
         :param kwargs: The keyword arguments for the task.
         :return: True if a thread was available and the task was assigned, False otherwise.
         """
-        for _ in range(self._thread_count):
-            if not self._threads[_].is_alive():
-                self._threads[_].set_task(func, args, kwargs)
-                self._threads[_].start()
+        for i in range(self._thread_count):
+            if not self._threads[i].is_alive():
+                self._threads[i].set_task(func, args, kwargs)
+                self._threads[i].start()
                 return True
         return False
 
@@ -145,7 +148,10 @@ class ThreadPool:
             self._die()
 
     def enqueue(
-        self, func: Callable = None, args: list = [], kwargs: dict = {}
+        self,
+        func: Optional[Callable[..., Any]] = None,
+        args: list = [],
+        kwargs: dict = {},
     ) -> None:
         """
         Enqueue a task to be executed by a thread. If no thread is available, the task is added to a queue.
@@ -156,6 +162,8 @@ class ThreadPool:
         """
         if self._disposed:
             raise Exception("Cannot use disposed thread pool")
+        if func is None:
+            raise ValueError("Task function cannot be None")
         if not self._setup_task(func, tuple(args), kwargs):
             self._task_queue.append({"func": func, "args": args, "kwargs": kwargs})
 
