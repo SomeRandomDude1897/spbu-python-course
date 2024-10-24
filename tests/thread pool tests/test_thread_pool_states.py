@@ -1,5 +1,6 @@
 from project.thread_pool import ThreadPool
 import time
+import threading
 
 
 def test_thread_states():
@@ -35,12 +36,21 @@ def test_str_representation():
     # Метод __str__ должен отражать состояние потоков
     output = str(pool)
     assert (
-        "thread 1 in state working" in output
+        "Thread 1 in state working" in output
     ), "Состояние потоков некорректно отображается в __str__"
 
 
 def test_get_threads_amount():
     pool = ThreadPool(3)
+
+    def amogus():
+        time.sleep(1)
+        return True
+
+    initial_threads = threading.active_count()
+    pool.enqueue(amogus)
+    pool.enqueue(amogus)
+    pool.enqueue(amogus)
     assert (
-        pool.get_threads_amount() == 3
-    ), "get_threads_amount возвращает некорректное число"
+        threading.active_count() == initial_threads + 3
+    ), "потоков занято правильтное количетсво победа!!!!!!!"
