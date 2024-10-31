@@ -1,15 +1,8 @@
 import pytest
-from project.roulette import (
-    Player,
-    RiskyPlayer,
-    RandomPlayer,
-    CautiousPlayer,
-    Roulette,
-    Casino,
-    Game,
-    CheaterRoulette,
-    GoodCasino,
-)
+from project.casino.roulette_game import Game
+from project.casino.player import *
+from project.casino.roulette import *
+from project.casino.casino import *
 
 
 @pytest.fixture
@@ -61,15 +54,13 @@ def test_cautious_player_bet():
     assert bet_info["numbers"] is not None
 
 
+# хорошее казино приводит к банкротству игроков
 def test_game_end_condition(setup_game):
     """Проверка условия окончания игры."""
     game = setup_game
-    for _ in range(10):  # Имитируем 10 раундов
+    for _ in range(1000):  # Имитируем 10 раундов
         game.make_round()
     # Уменьшаем капитал игроков, чтобы завершить игру
-    for player in game.players:
-        player.capital = 0
-    game.kill_poor_people()  # Удаляем банкротов
     assert len(game.players) == 0  # Проверяем, что все игроки банкроты
 
 
@@ -94,17 +85,19 @@ def test_casino_payout(setup_game):
 
 
 @pytest.mark.parametrize(
-    "bet_type, expected_count",
+    "bet_class, expected_count",
     [
-        ("A", 1),
-        ("B", 2),
-        ("C", 3),
-        ("D", 4),
-        ("E", 6),
+        (AtypeBet, 1),
+        (BtypeBet, 2),
+        (CtypeBet, 3),
+        (DtypeBet, 4),
+        (EtypeBet, 6),
     ],
 )
-def test_bet_numbers_count(bet_type, expected_count):
-    """Проверка количества чисел в ставках."""
-    player = Player(100)
-    bet_numbers = player._get_bet_numbers(bet_type)
+def test_bet_numbers_count(bet_class, expected_count):
+    """Проверка количества чисел в ставках различных типов."""
+    bet_instance = bet_class()  # Создаем экземпляр класса ставки
+    bet_numbers = (
+        bet_instance.get_positions()
+    )  # Получаем список позиций для этой ставки
     assert len(bet_numbers) == expected_count
