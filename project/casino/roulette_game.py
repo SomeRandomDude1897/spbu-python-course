@@ -1,7 +1,7 @@
 from typing import List, Union, Dict
-from project.casino.player import Player
-from project.casino.roulette import Roulette
-from project.casino.casino import Casino
+from player import Player
+from roulette import Roulette
+from casino import Casino
 
 
 class Game:

@@ -57,8 +57,8 @@ BLACK_NUMBERS: set[int] = {
     33,
     35,
 }
-ODD_NUMBERS: set[int] = {n for n in range(1, 37) if n % 2 != 0}
-EVEN_NUMBERS: set[int] = {n for n in range(1, 37) if n % 2 == 0}
+ODD_NUMBERS: set[int] = {n for n in range(1, 37, 2)}
+EVEN_NUMBERS: set[int] = {n for n in range(0, 37, 2)}
 
 
 class Bet:

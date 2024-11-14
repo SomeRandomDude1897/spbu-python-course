@@ -1,6 +1,7 @@
 from typing import List, Union, Dict
-from project.casino.bet_types import *
+from bet_types import *
 import random
+from bet_data_enum import bet_types
 
 
 class Player:
@@ -93,10 +94,10 @@ class RiskyPlayer(Player):
         """
         self.capital -= self._get_current_bet(turn_number)
         return {
-            "numbers": self.possible_bets[
+            bet_types.NUMBERS: self.possible_bets[
                 random.randint(0, len(self.possible_bets) - 1)
             ].get_positions(),
-            "bet": self._get_current_bet(turn_number),
+            bet_types.BET: self._get_current_bet(turn_number),
         }
 
 
@@ -158,10 +159,10 @@ class RandomPlayer(Player):
         """
         self.capital -= self._get_current_bet(turn_number)
         return {
-            "numbers": self.possible_bets[
+            bet_types.NUMBERS: self.possible_bets[
                 random.randint(0, len(self.possible_bets) - 1)
             ].get_positions(),
-            "bet": self._get_current_bet(turn_number),
+            bet_types.BET: self._get_current_bet(turn_number),
         }
 
 
@@ -216,10 +217,10 @@ class CautiousPlayer(Player):
             Dict[str, Union[List[int], int]]: Dictionary containing chosen numbers and bet amount.
         """
         output: Dict[str, Union[List[int], int]] = {
-            "numbers": self.possible_bets[
+            bet_types.NUMBERS: self.possible_bets[
                 random.randint(0, len(self.possible_bets) - 1)
             ].get_positions(),
-            "bet": self._get_current_bet(turn_number),
+            bet_types.BET: self._get_current_bet(turn_number),
         }
         self.capital -= self._get_current_bet(turn_number)
         return output

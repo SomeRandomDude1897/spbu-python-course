@@ -1,4 +1,5 @@
 from typing import List, Union, Dict
+from bet_data_enum import BetParams
 
 
 class Casino:
@@ -9,6 +10,10 @@ class Casino:
     def __init__(self):
         # Payouts based on the number of numbers bet on.
         self.pay_table: Dict[int, int] = {18: 2, 12: 3, 6: 6, 4: 9, 3: 11, 2: 18, 1: 36}
+        # тут коэффициент выигрыша + 1,
+        # потому что это изначальное число денег умножить на коэффициент,
+        # могу переписать чтобы отнимала единичку, но зачем
+        # еще в пулл реквес те в комменте указать
 
     def match_bets(
         self, bets: List[Dict[str, Union[List[int], int]]], result: int
@@ -26,12 +31,15 @@ class Casino:
         """
         pays: List[int] = []
         for bet in bets:
+            print(bet)
             if (
-                isinstance(bet["numbers"], list)
-                and isinstance(bet["bet"], int)
-                and result in bet["numbers"]
+                isinstance(bet[BetParams.NUMBERS], list)
+                and isinstance(bet[BetParams.BET], int)
+                and result in bet[BetParams.NUMBERS]
             ):
-                modified_bet: int = bet["bet"] * self.pay_table[len(bet["numbers"])]
+                modified_bet: int = (
+                    bet[BetParams.BET] * self.pay_table[len(bet[BetParams.NUMBERS])]
+                )
                 pays.append(modified_bet)
             else:
                 pays.append(0)
